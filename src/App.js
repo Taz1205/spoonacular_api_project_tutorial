@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -8,17 +8,17 @@ function App() {
   const [recipe, setRecipe] = useState();
 
 
-  // Link to Spoonacular Search API Documentation: https://spoonacular.com/food-api/docs#Search-Recipes-Complex
-  async function getRecipes() {
+  // Link to Spoonacular Search API Documentation: https://spoonacular.com/food-api/docs#Get-Random-Recipes
+  async function getRandomRecipe() {
     try {
       //IMPORTANT! Update the below variable with your own api key!!
-      const apiKey = '056a638f92044e68818aadaa4e2293a9';
+      const apiKey = '';
 
-      //making spoonacular api call to search for photos based on search query
+      //making spoonacular api call to get a random recipe
       let resp = await axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`);
-      console.log(21, resp.data.recipes[0]);
+      console.log(21, resp.data);
 
-      //store the array of results into urlsToDisplay variable
+      //store the random recipe into the recipe variable
       setRecipe(resp.data.recipes[0]);
     } catch (e) {
       console.log(e);
@@ -27,7 +27,7 @@ function App() {
   }
 
   useEffect(() => {
-    getRecipes();
+    getRandomRecipe();
   }, []);
 
 
@@ -36,7 +36,7 @@ function App() {
 
     <div className="row">
 
-      <button onClick={getRecipes}>
+      <button onClick={getRandomRecipe}>
         Generate Random Recipie
       </button>
 
@@ -45,7 +45,7 @@ function App() {
         Name:
         <a target="_blank" href={recipe?.sourceUrl}>
           {recipe?.title}
-        </a>
+        </a>2
       </div>
       <img src={recipe?.image} />
 
